@@ -96,7 +96,7 @@ export default function Dashboard() {
       id: 'excel',
       title: '📊 Analiză Excel Modele',
       shortDesc: 'Rapoarte financiare, KPIs și vizualizare date avansată.',
-      href: '/analiza', // Link intern
+      href: '/analiza',
       icon: <FileSpreadsheet className="w-8 h-8 text-rose-400" />,
       gradient: 'from-rose-500/10 to-pink-500/10 border-rose-500/20 hover:border-rose-500/50',
       benefits: {
@@ -109,7 +109,6 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-[#090b10] text-slate-100 font-sans">
-      {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#090b10]/80 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
@@ -132,7 +131,6 @@ export default function Dashboard() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">Centrul de Comandă Glowbby</h1>
@@ -153,12 +151,17 @@ export default function Dashboard() {
                   <div className="p-3 bg-white/5 rounded-xl group-hover:bg-white/10 transition-colors">
                     {app.icon}
                   </div>
+                  {/* BUTONUL VIZIBIL PENTRU DETALII */}
                   <button 
                     onClick={() => toggleExpand(app.id)}
-                    className="text-slate-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors"
-                    title="Vezi beneficii"
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all shadow-sm border ${
+                      expandedId === app.id 
+                        ? 'bg-emerald-500 text-white border-emerald-400 shadow-emerald-500/20' 
+                        : 'bg-slate-800 text-slate-200 border-slate-600 hover:bg-slate-700 hover:text-white hover:border-slate-500'
+                    }`}
                   >
-                    {expandedId === app.id ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                    {expandedId === app.id ? 'Ascunde' : 'Vezi Detalii'}
+                    {expandedId === app.id ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                   </button>
                 </div>
                 
@@ -169,8 +172,7 @@ export default function Dashboard() {
                   {app.shortDesc}
                 </p>
 
-                {/* Expanded Benefits Section */}
-                <div className={`transition-all duration-500 ease-in-out overflow-hidden ${expandedId === app.id ? 'max-h-[500px] opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
+                <div className={`transition-all duration-500 ease-in-out overflow-hidden ${expandedId === app.id ? 'max-h-[500px] opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
                   <div className="pt-4 border-t border-white/10 space-y-3">
                     <BenefitItem icon={<Users className="w-4 h-4 text-blue-400" />} role="Pentru Modele" text={app.benefits.model} />
                     <BenefitItem icon={<Briefcase className="w-4 h-4 text-emerald-400" />} role="Pentru Traineri" text={app.benefits.trainer} />
@@ -179,7 +181,6 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Action Button */}
               <div className="p-4 bg-black/20 border-t border-white/5">
                 <a 
                   href={app.href}
@@ -199,7 +200,6 @@ export default function Dashboard() {
   );
 }
 
-// Componenta auxiliară pentru afișarea beneficiilor
 function BenefitItem({ icon, role, text }) {
   return (
     <div className="flex gap-3 text-sm">
